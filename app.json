@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "zwt",
+    "slug": "zwt",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
