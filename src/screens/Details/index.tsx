@@ -1,15 +1,8 @@
 import { useRoute } from '@react-navigation/native';
-import { Checkbox, Heading, HStack, Text, VStack } from 'native-base';
-import React, { FC, useEffect } from 'react';
+import { Checkbox, Heading, HStack, ScrollView, Text, VStack } from 'native-base';
+import React, { FC } from 'react';
 import Button from '../../components/Button';
-
-type DetailsProps = {
-  id: string;
-  fullName: string;
-  status: string;
-  cruzeVelocit: string;
-  avatarUrl: string;
-}
+import { problems } from './problems';
 
 const Details: FC = () => {
 
@@ -17,71 +10,43 @@ const Details: FC = () => {
 
   const { item } = route.params;
 
-  useEffect(() => {
-    console.log(item);
-  }, [])
-
-  const problems = [
-    {
-      id: 1,
-      title: 'Problema Mecanico',
-      type: 'mecanic',
-    },
-    {
-      id: 2,
-      title: 'Tempestade',
-      type: 'weather'
-    },
-    {
-      id: 3,
-      title: 'Ataque de Tubarao',
-      type: 'shark'
-    },
-
-  ]
-
   return (
     <>
       <VStack
         p={5}
-        height="80%"
       >
         <Heading
-          // mt={10}
           fontSize="xl"
-          mb={10}
+          mb={5}
         >
-          Navio: {item.fullName}
+          Navio: {item.fullName} - CDW8738482HU
         </Heading>
-        {
-          problems.map(data => (
-            <VStack key={data.id}
-              mt={5}
-            >
-              <HStack
-                pl={5}
+        <Text>Informe o problema</Text>
+
+        <ScrollView>
+          {
+            problems.map(data => (
+              <VStack key={data.id}
+                mt={5}
               >
-                <Checkbox
-                  shadow={2}
-                  value={data.type}
-                  accessibilityLabel="This is a dummy checkbox"
-                />
-                <Text
-                  ml={15}
+                <HStack
+                  pl={5}
                 >
-                  {data.title}
-                </Text>
-              </HStack>
-            </VStack>
-          ))
-        }
-      </VStack>
-
-
-      <VStack
-        flex={1}
-        p={10}
-      >
+                  <Checkbox
+                    shadow={2}
+                    value={String(data.type)}
+                    accessibilityLabel="This is a dummy checkbox"
+                  />
+                  <Text
+                    ml={15}
+                  >
+                    {data.title}
+                  </Text>
+                </HStack>
+              </VStack>
+            ))
+          }
+        </ScrollView>
         <Button
           title="Informar Problema"
         />
