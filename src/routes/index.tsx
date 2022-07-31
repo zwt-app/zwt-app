@@ -20,9 +20,7 @@ const Routes = () => {
                     }}
                 />
                 <Stack.Screen name="Details" component={Details}
-                    options={{
-                        headerShown: false,
-                    }}
+
                 />
             </Stack.Navigator>
         </NavigationContainer>

@@ -42,7 +42,7 @@ const Home: FC = () => {
       mt={10}
     >
       <Heading fontSize="xl" p="4" pb="3">
-        Meus Cargueiros
+        Status de Navios
       </Heading>
 
       <ScrollView>
