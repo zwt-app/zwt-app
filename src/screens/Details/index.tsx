@@ -1,14 +1,26 @@
 import { useRoute } from '@react-navigation/native';
 import { Checkbox, Heading, HStack, ScrollView, Text, VStack } from 'native-base';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import Button from '../../components/Button';
-import { problems } from './problems';
+import api from '../../services/api';
 
 const Details: FC = () => {
+
+  const [ocorrencias, setOcorrencias] = React.useState([]);
+
+  const getOcorrencies = async () => {
+    const response = await api.get('/ocorrencias');
+    const { data } = response;
+    setOcorrencias(data.response);
+  }
 
   const route = useRoute();
 
   const { item } = route.params;
+
+  useEffect(() => {
+    getOcorrencies();
+  }, [])
 
   return (
     <>
@@ -19,14 +31,14 @@ const Details: FC = () => {
           fontSize="xl"
           mb={5}
         >
-          Navio: {item.fullName} - CDW8738482HU
+          Vessel: {item.name}
         </Heading>
         <Text>Informe o problema</Text>
 
         <ScrollView>
           {
-            problems.map(data => (
-              <VStack key={data.id}
+            ocorrencias.map(ocr => (
+              <VStack key={ocr.id}
                 mt={5}
               >
                 <HStack
@@ -34,13 +46,13 @@ const Details: FC = () => {
                 >
                   <Checkbox
                     shadow={2}
-                    value={String(data.type)}
+                    value={String(ocr.descricao)}
                     accessibilityLabel="This is a dummy checkbox"
                   />
                   <Text
                     ml={15}
                   >
-                    {data.title}
+                    {ocr.descricao}
                   </Text>
                 </HStack>
               </VStack>

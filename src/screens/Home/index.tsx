@@ -20,12 +20,6 @@ const Home: FC = () => {
     navigation.navigate('Details', { item });
   }
 
-  const getData = async () => {
-    const response = await api.get('/horarios');
-    console.log(response.data);
-
-  }
-
   useEffect(() => {
     getVessels();
   }, [])
