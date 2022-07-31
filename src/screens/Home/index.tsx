@@ -1,39 +1,48 @@
 import { useNavigation } from '@react-navigation/native';
 import { Heading, HStack, Image, ScrollView, Text, VStack } from 'native-base';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import api from '../../services/api';
 import * as S from './styles';
 
 const data = [{
-  id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+  vesselId: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
   fullName: "SM VITORIA",
-  status: 'active',
-  cruzeVelocit: "12.5",
-  avatarUrl: "https://midias.agazeta.com.br/2021/08/27/navio-brasileiro-pardela-tambem-esta-cumprindo-quarentena-em-vitoria-591319-article.jpg"
+  operationStatus: 'active',
+  vesselImg: "https://midias.agazeta.com.br/2021/08/27/navio-brasileiro-pardela-tambem-esta-cumprindo-quarentena-em-vitoria-591319-article.jpg"
 },
 {
-  id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28bc",
+  vesselId: "bd7acbea-c1b1-46c2-aed5-3ad53abb28bc",
   fullName: "SM VITORIA",
-  status: 'active',
-  cruzeVelocit: "12.5",
-  avatarUrl: "https://midias.agazeta.com.br/2021/08/27/navio-brasileiro-pardela-tambem-esta-cumprindo-quarentena-em-vitoria-591319-article.jpg"
+  operationStatus: 'active',
+  vesselImg: "https://midias.agazeta.com.br/2021/08/27/navio-brasileiro-pardela-tambem-esta-cumprindo-quarentena-em-vitoria-591319-article.jpg"
 },
 {
-  id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28bd",
+  vesselId: "bd7acbea-c1b1-46c2-aed5-3ad53abb28bd",
   fullName: "SM VITORIA",
-  status: 'active',
-  cruzeVelocit: "12.5",
-  avatarUrl: "https://midias.agazeta.com.br/2021/08/27/navio-brasileiro-pardela-tambem-esta-cumprindo-quarentena-em-vitoria-591319-article.jpg"
+  operationStatus: 'active',
+  vesselImg: "https://midias.agazeta.com.br/2021/08/27/navio-brasileiro-pardela-tambem-esta-cumprindo-quarentena-em-vitoria-591319-article.jpg"
 },
 ];
 
 
 const Home: FC = () => {
 
+
+
   const navigation = useNavigation();
 
   const handlePress = (item) => {
     navigation.navigate('Details', { item });
   }
+
+  const getData = async () => {
+    const response = await api.get('/horarios');
+    console.log(response.data);
+  }
+
+  useEffect(() => {
+    getData();
+  }, [])
 
   return (
     <VStack
@@ -53,7 +62,7 @@ const Home: FC = () => {
               borderWidth={1}
               p={2}
               borderRadius={10}
-              key={item.id}
+              key={item.vesselId}
               mb={5}
             >
               <S.ButtonTouch
@@ -77,11 +86,6 @@ const Home: FC = () => {
                     ml={5}
                   >
                     Status: {item.status}
-                  </Text>
-                  <Text
-                    ml={5}
-                  >
-                    Velocidade de Cruzeiro: {item.cruzeVelocit}
                   </Text>
                 </VStack>
 
