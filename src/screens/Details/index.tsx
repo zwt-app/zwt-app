@@ -1,22 +1,61 @@
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Checkbox, Heading, HStack, ScrollView, Text, VStack } from 'native-base';
 import React, { FC, useEffect } from 'react';
+import { Alert } from 'react-native';
 import Button from '../../components/Button';
 import api from '../../services/api';
 
 const Details: FC = () => {
 
-  const [ocorrencias, setOcorrencias] = React.useState([]);
-
-  const getOcorrencies = async () => {
-    const response = await api.get('/ocorrencias');
-    const { data } = response;
-    setOcorrencias(data.response);
-  }
-
   const route = useRoute();
+  const navigation = useNavigation();
+  const [loading, setLoading] = React.useState(false);
 
   const { item } = route.params;
+
+  const [ocorrencias, setOcorrencias] = React.useState([]);
+  const [ocrDataId, setOcrDataId] = React.useState('');
+
+  const getOcorrencies = async () => {
+    try {
+      const response = await api.get('/ocorrencias');
+      const { data } = response;
+      setOcorrencias(data.response);
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+  const sendDataOcr = async () => {
+    try {
+      setLoading(true);
+      const response = await api.post('/ocorrencias', {
+        idOcorrencia: ocrDataId,
+        idDuv: item.duv,
+      });
+
+      if (response.status === 200) {
+        setLoading(false);
+        Alert.alert(
+          'Sucesso',
+          "Ocorrência cadastrada com sucesso!",
+          [
+            {
+              text: "OK", onPress: () => navigation.navigate('Home', {
+                previousPage: 'Details',
+              })
+            },
+          ]
+        );
+      }
+
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
+
 
   useEffect(() => {
     getOcorrencies();
@@ -48,6 +87,7 @@ const Details: FC = () => {
                     shadow={2}
                     value={String(ocr.descricao)}
                     accessibilityLabel="This is a dummy checkbox"
+                    onChange={() => setOcrDataId(ocr.id)}
                   />
                   <Text
                     ml={15}
@@ -60,7 +100,9 @@ const Details: FC = () => {
           }
         </ScrollView>
         <Button
+          loading={loading}
           title="Informar Problema"
+          onPress={() => sendDataOcr()}
         />
       </VStack>
     </>
