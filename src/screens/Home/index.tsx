@@ -1,4 +1,5 @@
-import { Heading, HStack, Image, Text, VStack } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
+import { Heading, HStack, Image, ScrollView, Text, VStack } from 'native-base';
 import React, { FC } from 'react';
 import * as S from './styles';
 
@@ -25,7 +26,14 @@ const data = [{
 },
 ];
 
+
 const Home: FC = () => {
+
+  const navigation = useNavigation();
+
+  const handlePress = (item) => {
+    navigation.navigate('Details', { item });
+  }
 
   return (
     <VStack
@@ -37,47 +45,52 @@ const Home: FC = () => {
         Meus Cargueiros
       </Heading>
 
-      {
-        data.map(item => (
-          <HStack w="full"
-            borderColor={'gray.200'}
-            borderWidth={1}
-            p={2}
-            borderRadius={10}
-            key={item.id}
-            mb={5}
-          >
-            <S.ButtonTouch>
-              <Image
-                style={{
-                  borderRadius: 10,
-                }}
-                source={{
-                  uri: item.avatarUrl,
-                }} alt="Alternate Text" size="sm" />
-              <VStack>
-                <Text
-                  ml={5}
-                >
-                  Nome: {item.fullName}
-                </Text>
+      <ScrollView>
+        {
+          data.map(item => (
+            <HStack w="full"
+              borderColor={'gray.200'}
+              borderWidth={1}
+              p={2}
+              borderRadius={10}
+              key={item.id}
+              mb={5}
+            >
+              <S.ButtonTouch
+                onPress={() => handlePress(item)} r
+              >
+                <Image
+                  style={{
+                    borderRadius: 10,
+                  }}
+                  source={{
+                    uri: item.avatarUrl,
+                  }} alt="Alternate Text" size="sm" />
+                <VStack>
+                  <Text
+                    ml={5}
+                  >
+                    Nome: {item.fullName}
+                  </Text>
 
-                <Text
-                  ml={5}
-                >
-                  Status: {item.status}
-                </Text>
-                <Text
-                  ml={5}
-                >
-                  Velocidade de Cruzeiro: {item.cruzeVelocit}
-                </Text>
-              </VStack>
+                  <Text
+                    ml={5}
+                  >
+                    Status: {item.status}
+                  </Text>
+                  <Text
+                    ml={5}
+                  >
+                    Velocidade de Cruzeiro: {item.cruzeVelocit}
+                  </Text>
+                </VStack>
 
-            </S.ButtonTouch>
-          </HStack>
-        ))
-      }
+              </S.ButtonTouch>
+            </HStack>
+          ))
+        }
+      </ScrollView>
+
     </VStack >
   )
 }
