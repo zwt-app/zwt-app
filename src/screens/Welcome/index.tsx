@@ -28,16 +28,16 @@ const Welcome: React.FC = () => {
             />
             <Button
                 title="Visao Operador Maritimo"
+                variant="outline"
                 w="full"
-                style={{
-                    backgroundColor: 'blue'
-                }}
+                bg={colors.blue[500]}
                 onPress={() => navigation.navigate('Home')}
             />
             <Button
                 title="Visao Terminal"
                 w="full"
                 onPress={() => navigation.navigate('OperationStatus')}
+                bg={colors.darkBlue[700]}
             />
         </VStack>
     )

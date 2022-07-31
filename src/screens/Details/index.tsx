@@ -57,6 +57,8 @@ const Details: FC = () => {
   }
 
 
+
+
   useEffect(() => {
     getOcorrencies();
   }, [])
@@ -105,6 +107,7 @@ const Details: FC = () => {
           onPress={() => sendDataOcr()}
         />
       </VStack>
+
     </>
   )
 }

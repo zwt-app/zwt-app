@@ -17,7 +17,7 @@ const Button: FC<Props> = ({ title, loading = false, type, ...rest }) => {
       fontSize="sm"
       rounded="sm"
       _pressed={{
-        bg: "green.500",
+        bg: "blue.300",
       }}
       {...rest}
     >

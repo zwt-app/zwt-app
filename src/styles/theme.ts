@@ -30,6 +30,18 @@ export const THEME = extendTheme({
     },
     white: '#FFFFFF'
   },
+  blue: {
+    700: '#003A88',
+    500: '#0066CC',
+    300: '#0099FF',
+    100: '#00B3FF'
+  },
+  darkBlue: {
+    700: '#002060',
+    500: '#004080',
+    300: '#0060A0',
+    100: '#0080C0'
+  },
   fonts: {
     heading: 'Roboto_700Bold',
     body: 'Roboto_400Regular',
