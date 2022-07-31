@@ -11,7 +11,7 @@ const Details: FC = () => {
   const navigation = useNavigation();
   const [loading, setLoading] = React.useState(false);
 
-  const { item } = route.params;
+  const { item } = route?.params;
 
   const [ocorrencias, setOcorrencias] = React.useState([]);
   const [ocrDataId, setOcrDataId] = React.useState('');

@@ -1,17 +1,19 @@
-import { Button as ButtonNativeBase, IButtonProps, Heading, Spinner } from 'native-base'
+import { Button as ButtonNativeBase, IButtonProps, Heading, Spinner, useTheme } from 'native-base'
 import { FC } from "react";
 
 type Props = IButtonProps & {
   title: string;
-  loading: boolean
+  loading?: boolean;
+  type?: 'late' | 'current' | 'outdated' | 'search';
 }
 
-const Button: FC<Props> = ({ title, loading = false, ...rest }) => {
+const Button: FC<Props> = ({ title, loading = false, type, ...rest }) => {
+  const { colors } = useTheme();
   return (
     <ButtonNativeBase
       mt={8}
       height={14}
-      bg="green.700"
+      bg={type === 'late' ? colors.red[700] : type === 'search' ? colors.blue[700] : colors.green[700]}
       fontSize="sm"
       rounded="sm"
       _pressed={{

@@ -40,12 +40,34 @@ const Home: FC = () => {
   return (
     <VStack
       p={5}
-
-      mt={10}
+      bg={colors.white}
     >
+      <HStack
+        pl={5}
+        // pb={5}
+        justifyContent={'space-between'}
+        alignItems={'center'}
+      >
+        <Heading
+          w="45%"
+          height={50}
+        >
+          Maersk Line
+        </Heading>
+        <Image
+          alt="logo"
+          source={require('../../assets/maersk.png')}
+          size="md"
+          style={{
+            width: '45%',
+          }}
+        />
+      </HStack>
+
       <Heading fontSize="xl" p="4" pb="3">
         Status de Navios - {new Date().toLocaleDateString()}
       </Heading>
+
 
       <ScrollView
         showsVerticalScrollIndicator={false}
