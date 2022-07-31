@@ -22,6 +22,14 @@ Install the project with yarn
 
 
     
+## Features and libs used
+
+- Cross platform
+- Use native-base 
+- Typescript
+
+
+
 ## Badges
 
 
