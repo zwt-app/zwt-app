@@ -4,30 +4,15 @@ import React, { FC, useEffect } from 'react';
 import api from '../../services/api';
 import * as S from './styles';
 
-const data = [{
-  vesselId: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-  fullName: "SM VITORIA",
-  operationStatus: 'active',
-  vesselImg: "https://midias.agazeta.com.br/2021/08/27/navio-brasileiro-pardela-tambem-esta-cumprindo-quarentena-em-vitoria-591319-article.jpg"
-},
-{
-  vesselId: "bd7acbea-c1b1-46c2-aed5-3ad53abb28bc",
-  fullName: "SM VITORIA",
-  operationStatus: 'active',
-  vesselImg: "https://midias.agazeta.com.br/2021/08/27/navio-brasileiro-pardela-tambem-esta-cumprindo-quarentena-em-vitoria-591319-article.jpg"
-},
-{
-  vesselId: "bd7acbea-c1b1-46c2-aed5-3ad53abb28bd",
-  fullName: "SM VITORIA",
-  operationStatus: 'active',
-  vesselImg: "https://midias.agazeta.com.br/2021/08/27/navio-brasileiro-pardela-tambem-esta-cumprindo-quarentena-em-vitoria-591319-article.jpg"
-},
-];
-
-
 const Home: FC = () => {
 
+  const [vessels, setVessels] = React.useState([]);
 
+  const getVessels = async () => {
+    const response = await api.get('/navios');
+    const { data } = response;
+    setVessels(data.response);
+  }
 
   const navigation = useNavigation();
 
@@ -38,10 +23,11 @@ const Home: FC = () => {
   const getData = async () => {
     const response = await api.get('/horarios');
     console.log(response.data);
+
   }
 
   useEffect(() => {
-    getData();
+    getVessels();
   }, [])
 
   return (
@@ -56,36 +42,36 @@ const Home: FC = () => {
 
       <ScrollView>
         {
-          data.map(item => (
+          vessels?.map(vessel => (
             <HStack w="full"
               borderColor={'gray.200'}
               borderWidth={1}
               p={2}
               borderRadius={10}
-              key={item.vesselId}
+              key={vessel.duv}
               mb={5}
             >
               <S.ButtonTouch
-                onPress={() => handlePress(item)} r
+                onPress={() => handlePress(vessel)}
               >
                 <Image
                   style={{
                     borderRadius: 10,
                   }}
                   source={{
-                    uri: item.avatarUrl,
+                    uri: vessel.img,
                   }} alt="Alternate Text" size="sm" />
                 <VStack>
                   <Text
                     ml={5}
                   >
-                    Nome: {item.fullName}
+                    Nome: {vessel.name}
                   </Text>
 
                   <Text
                     ml={5}
                   >
-                    Status: {item.status}
+                    Status: {vessel.status}
                   </Text>
                 </VStack>
 
@@ -94,7 +80,6 @@ const Home: FC = () => {
           ))
         }
       </ScrollView>
-
     </VStack >
   )
 }
