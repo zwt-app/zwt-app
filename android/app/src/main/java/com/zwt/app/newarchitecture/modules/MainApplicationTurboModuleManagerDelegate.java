@@ -1,4 +1,4 @@
-package com.zwt.newarchitecture.modules;
+package com.zwt.app.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
